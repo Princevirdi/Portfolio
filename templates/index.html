@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About | Portfolio{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-media">
+    <img src="{% static 'Media/main-pic.jpeg' %}" alt="Portrait" class="about-photo" />
+  </div>
+  <div class="hero-content">
+    <h1>Prince Virdi</h1>
+    <p>Software Engineer | Penetration Tester | Web Developer | Mobile Developer</p>
+    <p>I am a B.Tech CSE student and Software Engineer with a strong focus on building efficient, secure, and scalable software solutions. I specialize in applying cybersecurity principles to develop reliable applications and protect systems from modern digital threats.</p>
+  </div>
+</section>
+
+<section class="about-cards">
+  <div class="section-heading">
+    <h2>About Me</h2>
+  </div>
+  <div class="cards-grid">
+    <article class="info-card">
+      <h3>👨‍💻 Who I Am</h3>
+      <p>I am a Computer Science student focused on web and mobile development, with a specialization in cybersecurity. I study security to build safer, more robust applications and protect projects from vulnerabilities.</p>
+    </article>
+    <article class="info-card">
+      <h3>🛡️ Cybersecurity Focus</h3>
+      <p>My focus includes web and mobile security, vulnerability assessment, and secure coding practices. I use cybersecurity knowledge to identify risks and build more secure applications.</p>
+    </article>
+    <article class="info-card">
+      <h3>⚡ Hands-on Experience</h3>
+      <p>I actively practice on cybersecurity platforms, solving real-world challenges in web security and application vulnerabilities to strengthen my development and security skills.</p>
+    </article>
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="section-heading">
+    <h2>Skills</h2>
+  </div>
+  <div class="skills-groups">
+    <article class="skills-group">
+      <h3>Languages</h3>
+      <div class="skills-grid">
+        <span class="skill-card">C++</span>
+        <span class="skill-card">C</span>
+        <span class="skill-card">Python</span>
+        <span class="skill-card">Java</span>
+        <span class="skill-card">JavaScript</span>
+        <span class="skill-card">Flutter/Dart</span>
+      </div>
+    </article>
+    <article class="skills-group">
+      <h3>Frameworks</h3>
+      <div class="skills-grid">
+        <span class="skill-card">HTML</span>
+        <span class="skill-card">CSS</span>
+        <span class="skill-card">Bootstrap</span>
+        <span class="skill-card">React</span>
+        <span class="skill-card">Django</span>
+        <span class="skill-card">Flask</span>
+      </div>
+    </article>
+    <article class="skills-group">
+      <h3>Tools & Platforms</h3>
+      <div class="skills-grid">
+        <span class="skill-card">Android Studio</span>
+        <span class="skill-card">Firebase</span>
+        <span class="skill-card">MySQL</span>
+        <span class="skill-card">Anaconda</span>
+        <span class="skill-card">Jupyter</span>
+        <span class="skill-card">Linux</span>
+        <span class="skill-card">Wireshark</span>
+        <span class="skill-card">Matplotlib</span>
+        <span class="skill-card">Nmap</span>
+      </div>
+    </article>
+    <article class="skills-group">
+      <h3>Soft Skills</h3>
+      <div class="skills-grid">
+        <span class="skill-card">Problem Solving</span>
+        <span class="skill-card">Adaptability</span>
+        <span class="skill-card">Fast Learning</span>
+      </div>
+    </article>
+  </div>
+</section>
+{% endblock %}

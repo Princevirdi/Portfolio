@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Resume | Portfolio{% endblock %}
+{% block content %}
+<section class="resume-section">
+  <div class="resume-heading">
+    <span class="resume-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5V6a2 2 0 0 1 2-2h10.5a2 2 0 0 1 2 2v13.5" />
+        <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H18" />
+        <path d="M8 8h6" />
+        <path d="M8 12h6" />
+      </svg>
+    </span>
+    <div>
+      <h1>Education</h1>
+      <p>Academic background and achievements.</p>
+    </div>
+  </div>
+
+  <div class="resume-timeline" role="list">
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Lovely Professional University</h2>
+          <span class="resume-location">Punjab, India</span>
+        </div>
+        <p class="resume-detail">Bachelor of Technology - Computer Science and Engineering; <strong>CGPA: 6.5</strong></p>
+        <span class="resume-date">August 2023 - Present</span>
+      </div>
+    </article>
+
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Cantonment Board Secondary School</h2>
+          <span class="resume-location">Jalandhar, Punjab</span>
+        </div>
+        <p class="resume-detail">Intermediate; <strong>Percentage: 78%</strong></p>
+        <span class="resume-date">April 2022 - March 2023</span>
+      </div>
+    </article>
+
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Government Secondary School</h2>
+          <span class="resume-location">Jalandhar, Punjab</span>
+        </div>
+        <p class="resume-detail">Matriculation; <strong>Percentage: 91%</strong></p>
+        <span class="resume-date">April 2020 - March 2021</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="training-section">
+  <div class="resume-heading">
+    <span class="resume-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 7l9-4 9 4-9 4-9-4Z" />
+        <path d="M6 10.5V15c2 1.5 4 2.5 6 2.5s4-1 6-2.5v-4.5" />
+        <path d="M6 10.5L3 9v4" />
+      </svg>
+    </span>
+    <div>
+      <h1>Training</h1>
+      <p>Hands-on programs and practical learning.</p>
+    </div>
+  </div>
+  <div class="resume-timeline" role="list">
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="training-meta">
+          <h3>Placement Ace: JAVA Boot Camp</h3>
+          <span class="training-date">Jun - Jul 2025</span>
+        </div>
+        <ul class="training-points">
+          <li>Developed interactive educational games demonstrating DSA concepts through practical Java implementation.</li>
+          <li>Created JavaFX-based DSA Games Hub featuring Snake Game (collision detection) and Car Racing Game (array list) with optimized algorithms and responsive GUI.</li>
+          <li>Achieved real-time interactive game, 100% input validation accuracy, and O(1) operation efficiency while delivering bug-free performance.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="resume-section">
+  <div class="resume-heading">
+    <span class="resume-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 4h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
+        <path d="M8 8h8" />
+        <path d="M8 12h5" />
+        <path d="M10 18v2" />
+        <path d="M14 18v2" />
+      </svg>
+    </span>
+    <div>
+      <h1>Certificates</h1>
+      <p>Professional courses and certifications.</p>
+    </div>
+  </div>
+
+  <div class="resume-timeline" role="list">
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Placement Ace: JAVA Bootcamp - LPU</h2>
+        </div>
+        <div class="cert-date-row">
+          <span class="resume-date">Jun, 2025</span>
+          <a class="cert-link" href="{% static 'Media/certificate/java bootcamp.pdf' %}" target="_blank" rel="noopener" aria-label="View certificate: Placement Ace JAVA Bootcamp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Introduction to Cloud Computing - NPTEL</h2>
+        </div>
+        <div class="cert-date-row">
+          <span class="resume-date">Nov, 2024</span>
+          <a class="cert-link" href="{% static 'Media/certificate/Cloud Computing (2).pdf' %}" target="_blank" rel="noopener" aria-label="View certificate: Introduction to Cloud Computing">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Introduction of Cybersecurity - Rising Tech Pro</h2>
+        </div>
+        <div class="cert-date-row">
+          <span class="resume-date">Jan, 2024</span>
+          <a class="cert-link" href="{% static 'Media/certificate/Rising Tech Pro.pdf' %}" target="_blank" rel="noopener" aria-label="View certificate: Introduction of Cybersecurity">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>HTML, CSS and JavaScript - Free Code Camp</h2>
+        </div>
+        <div class="cert-date-row">
+          <span class="resume-date">Oct, 2023</span>
+          <a class="cert-link" href="{% static 'Media/certificate/Free Code Camp.pdf' %}" target="_blank" rel="noopener" aria-label="View certificate: HTML, CSS and JavaScript">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+     <article class="resume-item" role="listitem">
+      <div class="resume-dot" aria-hidden="true"></div>
+      <div class="resume-content">
+        <div class="resume-meta">
+          <h2>Python - HackerRank</h2>
+        </div>
+        <div class="cert-date-row">
+          <span class="resume-date">Feb, 2026</span>
+          <a class="cert-link" href="{% static 'Media/certificate/python-HackerRank.pdf' %}" target="_blank" rel="noopener" aria-label="View certificate: Python HackerRank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1.5 12s3.8-7 10.5-7 10.5 7 10.5 7-3.8 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="resume-actions">
+    <a class="btn-cv" href="{% static 'Media/Princevirdi12312378.pdf' %}" download>Download CV</a>
+  </div>
+</section>
+{% endblock %}

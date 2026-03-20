@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Contact | Portfolio{% endblock %}
+{% block content %}
+<section class="contact-section">
+  <div class="contact-heading">
+    <h1>Contact</h1>
+    <p>Let’s talk about new projects, collaborations, or just say hello.</p>
+  </div>
+
+
+  <div class="contact-card">
+      <div class="map-header">
+        <h2>Live Location</h2>
+        <p>Jalandhar, Punjab, India</p>
+      </div>
+      <div class="map-frame">
+        <iframe
+          title="Map of Jalandhar, Punjab"
+          src="https://www.google.com/maps?q=sofipind%2C%Jalandhar%2C%20Punjab%2C%20India&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h2>Contact Form</h2>
+      <form class="contact-form" method="post">
+        {% csrf_token %}
+        {% if success %}
+          <p class="form-success">Thanks! Your message has been sent.</p>
+        {% endif %}
+        <div class="form-row">
+          <label for="{{ form.name.id_for_label }}">Name</label>
+          {{ form.name }}
+        </div>
+        <div class="form-row">
+          <label for="{{ form.email.id_for_label }}">Email</label>
+          {{ form.email }}
+        </div>
+        <div class="form-row">
+          <label for="{{ form.subject.id_for_label }}">Subject</label>
+          {{ form.subject }}
+        </div>
+        <div class="form-row">
+          <label for="{{ form.message.id_for_label }}">Message</label>
+          {{ form.message }}
+        </div>
+        <button class="btn-send" type="submit">
+          <span class="btn-send-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13" />
+              <path d="M22 2l-7 20-4-9-9-4 20-7Z" />
+            </svg>
+          </span>
+          Send Message
+        </button>
+      </form>
+    </div>
+
+    
+  </div>
+</section>
+{% endblock %}
