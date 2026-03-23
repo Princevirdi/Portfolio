@@ -10,10 +10,6 @@ def _bootstrap_django_for_vercel() -> None:
     or created the admin user yet, so `/admin/` can fail.
     """
 
-    # Only bootstrap on Vercel (keeps local dev behavior predictable).
-    if not os.environ.get("VERCEL"):
-        return
-
     # Optional: you can disable this if you don't want migrations at cold start.
     if os.environ.get("DJANGO_AUTO_MIGRATE", "1") != "1":
         return
@@ -25,6 +21,8 @@ def _bootstrap_django_for_vercel() -> None:
 
     from django.contrib.auth import get_user_model
     from django.core.management import call_command
+
+    print("[django vercel bootstrap] starting")
 
     # Apply migrations so auth/admin tables exist.
     call_command("migrate", interactive=False, verbosity=0)
@@ -55,8 +53,8 @@ def _bootstrap_django_for_vercel() -> None:
             user.is_staff = True
             user.is_superuser = True
             user.is_active = True
-            # Avoid triggering extra validation; `set_password` sets hash.
-            user.save(update_fields=["password", "is_staff", "is_superuser", "is_active"])
+            # Save all fields to avoid any edge-cases with update_fields.
+            user.save()
             print("[django vercel bootstrap] superuser updated:", username)
 
 
