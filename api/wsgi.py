@@ -28,6 +28,7 @@ def _bootstrap_django_for_vercel() -> None:
 
     # Apply migrations so auth/admin tables exist.
     call_command("migrate", interactive=False, verbosity=0)
+    print("[django vercel bootstrap] migrate complete")
 
     # Optionally create a superuser for admin access.
     username = os.environ.get("DJANGO_SUPERUSER_USERNAME")
@@ -46,10 +47,17 @@ def _bootstrap_django_for_vercel() -> None:
                 email=email,
                 password=password,
             )
+            print("[django vercel bootstrap] superuser created:", username)
         else:
             user.set_password(password)
+            # Ensure admin login works even if the account existed previously
+            # but wasn't flagged as staff/superuser.
+            user.is_staff = True
+            user.is_superuser = True
+            user.is_active = True
             # Avoid triggering extra validation; `set_password` sets hash.
-            user.save(update_fields=["password"])
+            user.save(update_fields=["password", "is_staff", "is_superuser", "is_active"])
+            print("[django vercel bootstrap] superuser updated:", username)
 
 
 _bootstrap_django_for_vercel()
