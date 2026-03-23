@@ -86,14 +86,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # Vercel serverless filesystem is ephemeral; ensure SQLite uses a
-        # writable path so `migrate` can create auth/admin tables.
-        'NAME': str(
-            os.environ.get(
-                "SQLITE_DB_PATH",
-                "/tmp/db.sqlite3" if os.environ.get("VERCEL") else str(BASE_DIR / "db.sqlite3"),
-            )
-        ),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
