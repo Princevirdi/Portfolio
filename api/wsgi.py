@@ -24,38 +24,59 @@ def _bootstrap_django_for_vercel() -> None:
 
     print("[django vercel bootstrap] starting")
 
-    # Apply migrations so auth/admin tables exist.
-    call_command("migrate", interactive=False, verbosity=0)
-    print("[django vercel bootstrap] migrate complete")
+    try:
+        # Apply migrations so auth/admin tables exist.
+        call_command("migrate", interactive=False, verbosity=0)
+        print("[django vercel bootstrap] migrate complete")
 
-    # Optionally create a superuser for admin access.
-    username = os.environ.get("DJANGO_SUPERUSER_USERNAME")
-    email = os.environ.get("DJANGO_SUPERUSER_EMAIL", "")
-    password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+        # Create/update a superuser for admin access.
+        username = (os.environ.get("DJANGO_SUPERUSER_USERNAME") or "").strip()
+        email = (os.environ.get("DJANGO_SUPERUSER_EMAIL") or "").strip()
+        password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
 
-    if username and password:
-        User = get_user_model()
-        user = User.objects.filter(username=username).first()
+        if username and password:
+            User = get_user_model()
+            username_field = getattr(User, "USERNAME_FIELD", "username")
 
-        # If the user already exists (e.g., from a previous deploy),
-        # ensure the password matches the current env var.
-        if user is None:
-            user = User.objects.create_superuser(
-                username=username,
-                email=email,
-                password=password,
-            )
-            print("[django vercel bootstrap] superuser created:", username)
+            lookup = {f"{username_field}__iexact": username}
+            user = User.objects.filter(**lookup).first()
+
+            if user is None:
+                # Use create_superuser to ensure proper flags.
+                user_kwargs = {username_field: username}
+                user_kwargs.update({"email": email, "password": password})
+                user = User.objects.create_superuser(**user_kwargs)
+                print("[django vercel bootstrap] superuser created:", username)
+            else:
+                user.set_password(password)
+                # Ensure admin login works even if the account existed previously
+                # but wasn't flagged as staff/superuser.
+                if hasattr(user, "is_staff"):
+                    user.is_staff = True
+                if hasattr(user, "is_superuser"):
+                    user.is_superuser = True
+                if hasattr(user, "is_active"):
+                    user.is_active = True
+                user.save()
+                print(
+                    "[django vercel bootstrap] superuser updated:",
+                    username,
+                    "is_staff=",
+                    getattr(user, "is_staff", None),
+                    "is_superuser=",
+                    getattr(user, "is_superuser", None),
+                )
         else:
-            user.set_password(password)
-            # Ensure admin login works even if the account existed previously
-            # but wasn't flagged as staff/superuser.
-            user.is_staff = True
-            user.is_superuser = True
-            user.is_active = True
-            # Save all fields to avoid any edge-cases with update_fields.
-            user.save()
-            print("[django vercel bootstrap] superuser updated:", username)
+            print(
+                "[django vercel bootstrap] missing env vars:",
+                "DJANGO_SUPERUSER_USERNAME=",
+                bool(username),
+                "DJANGO_SUPERUSER_PASSWORD=",
+                bool(password),
+            )
+    except Exception as exc:
+        # Print the error so it shows up in Vercel logs.
+        print("[django vercel bootstrap] error:", repr(exc))
 
 
 _bootstrap_django_for_vercel()

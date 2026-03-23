@@ -133,11 +133,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-if os.environ.get("VERCEL"):
-    # On Vercel the filesystem is ephemeral, so we serve static assets
-    # directly from `static/`. Collect admin static files into the same folder.
-    STATICFILES_DIRS = []
-    STATIC_ROOT = BASE_DIR / 'static'
-else:
-    STATICFILES_DIRS = [BASE_DIR / 'static']
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
