@@ -36,12 +36,20 @@ def _bootstrap_django_for_vercel() -> None:
 
     if username and password:
         User = get_user_model()
-        if not User.objects.filter(username=username).exists():
-            User.objects.create_superuser(
+        user = User.objects.filter(username=username).first()
+
+        # If the user already exists (e.g., from a previous deploy),
+        # ensure the password matches the current env var.
+        if user is None:
+            user = User.objects.create_superuser(
                 username=username,
                 email=email,
                 password=password,
             )
+        else:
+            user.set_password(password)
+            # Avoid triggering extra validation; `set_password` sets hash.
+            user.save(update_fields=["password"])
 
 
 _bootstrap_django_for_vercel()
