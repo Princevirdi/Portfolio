@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+import tempfile
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,7 +87,22 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # Vercel serverless functions run on an ephemeral filesystem and the
+        # deployed code directory may be read-only. Use /tmp for a writable DB.
+        #
+        # You can override this with SQLITE_DB_PATH if needed.
+        'NAME': (
+            os.environ.get("SQLITE_DB_PATH")
+            or (
+                (Path(tempfile.gettempdir()) / "db.sqlite3")
+                if os.environ.get("VERCEL")
+                else (BASE_DIR / "db.sqlite3")
+            )
+        ),
+        # Help avoid "database is locked" errors under concurrent requests.
+        'OPTIONS': {
+            'timeout': 20.0,
+        },
     }
 }
 

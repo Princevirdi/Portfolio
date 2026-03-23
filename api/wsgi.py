@@ -21,13 +21,24 @@ def _bootstrap_django_for_vercel() -> None:
 
     from django.contrib.auth import get_user_model
     from django.core.management import call_command
+    from django.conf import settings as django_settings
 
     print("[django vercel bootstrap] starting")
 
     try:
-        # Apply migrations so auth/admin tables exist.
-        call_command("migrate", interactive=False, verbosity=0)
-        print("[django vercel bootstrap] migrate complete")
+        # In serverless environments the filesystem is ephemeral and can be
+        # accessed concurrently. For SQLite, we avoid running migrations if
+        # the DB file already exists (unless explicitly forced).
+        db_name = str(django_settings.DATABASES["default"]["NAME"])
+        force_migrate = os.environ.get("DJANGO_FORCE_MIGRATE", "0") == "1"
+        db_missing = not os.path.exists(db_name)
+
+        if force_migrate or db_missing:
+            # Apply migrations so auth/admin tables exist.
+            call_command("migrate", interactive=False, verbosity=0)
+            print("[django vercel bootstrap] migrate complete")
+        else:
+            print("[django vercel bootstrap] migrate skipped (db exists)")
 
         # Create/update a superuser for admin access.
         username = (os.environ.get("DJANGO_SUPERUSER_USERNAME") or "").strip()
