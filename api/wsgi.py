@@ -31,7 +31,26 @@ def _bootstrap_django_for_vercel() -> None:
         # the DB file already exists (unless explicitly forced).
         db_name = str(django_settings.DATABASES["default"]["NAME"])
         force_migrate = os.environ.get("DJANGO_FORCE_MIGRATE", "0") == "1"
+        reset_db = os.environ.get("DJANGO_RESET_DB", "0") == "1"
+
+        if reset_db and os.path.exists(db_name):
+            try:
+                os.remove(db_name)
+                print("[django vercel bootstrap] db reset: removed", db_name)
+            except Exception as exc:
+                print("[django vercel bootstrap] db reset failed:", repr(exc))
+
         db_missing = not os.path.exists(db_name)
+        print(
+            "[django vercel bootstrap] db_path=",
+            db_name,
+            "force_migrate=",
+            force_migrate,
+            "reset_db=",
+            reset_db,
+            "db_missing=",
+            db_missing,
+        )
 
         if force_migrate or db_missing:
             # Apply migrations so auth/admin tables exist.
@@ -44,6 +63,16 @@ def _bootstrap_django_for_vercel() -> None:
         username = (os.environ.get("DJANGO_SUPERUSER_USERNAME") or "").strip()
         email = (os.environ.get("DJANGO_SUPERUSER_EMAIL") or "").strip()
         password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+        print(
+            "[django vercel bootstrap] superuser env: username_set=",
+            bool(username),
+            "email_set=",
+            bool(email),
+            "password_set=",
+            bool(password),
+            "username=",
+            username,
+        )
 
         if username and password:
             User = get_user_model()
